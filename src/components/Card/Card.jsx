@@ -11,14 +11,14 @@ const Img = styled.img`
 `;
 
 const Title = styled.h1`
-   color: beige;
-   font-weight: bold;
-   display: flex;
-   justify-content: center;
+  color: #000;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
 `;
 
 const Text = styled.h2`
-   color: #efe;
+   color: #000;
    font-size: 1.2rem;
    font-weight: 400;
    display: flex;
