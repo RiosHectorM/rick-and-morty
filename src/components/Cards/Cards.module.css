@@ -1,7 +1,0 @@
-.divStyle{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  border-style: solid dashed;
-  justify-content: center;
-}

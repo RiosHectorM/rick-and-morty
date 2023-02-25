@@ -1,0 +1,38 @@
+.container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.containerCards{
+  display: flex;
+  justify-content:space-around;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.filterContainer{
+  display: flex;
+  background: rgb(0, 0, 0, 0.7);
+  justify-content: space-around;
+  color: white;
+  height: 50px;
+  align-items: center;
+  font-size: 2em;
+}
+
+.select{
+  font-family: "Creepster", cursive;
+  text-align: center;
+  font-size: 0.5em;
+  border-radius: 20px;
+  width: 20%;
+}
+
+.select:focus {
+  outline: none ;
+  border-color: #33ff00;
+  background: black;
+  color: white;
+  box-shadow: 0 0 10px #33ff00;
+}

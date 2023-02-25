@@ -1,0 +1,90 @@
+.warning {
+  color: red;
+}
+
+.danger {
+  font-size: 1em;
+  color: red;
+  background: black;
+  padding: 0px 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin: 5vh 5vh;
+  background: rgb(57, 255, 20);
+  background: linear-gradient(
+    0deg,
+    rgba(57, 255, 20, 0.5186449579831933) 16%,
+    rgba(0, 0, 0, 0.835171568627451) 52%
+  );
+  box-shadow: 0px 0px 15px 15px #39ff14;
+  border-radius: 50px;
+}
+.title {
+  font-size: 5em;
+  color: #39ff14;
+  letter-spacing: 10px;
+  text-align: center;
+}
+
+.form {
+  background: rgb(57, 255, 20);
+  background: radial-gradient(
+    circle,
+    rgba(57, 255, 20, 0.6054796918767507) 93%,
+    rgba(0, 0, 0, 0.6418942577030813) 99%
+  );
+  padding: 5vh;
+  margin-bottom: 2vh;
+  border-radius: 10%;
+  box-shadow: 0px 0px 15px 15px #000000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.form label {
+  font-size: 1.5em;
+}
+.form input{
+  font-family: 'Creepster', cursive;
+  font-size: 1.1em;
+}
+.btn {
+  font-family: 'Creepster', cursive;
+  font-size: 1.5em;
+  color: #ffffff;
+  background-color: #000000;
+  padding: 10px 10px;
+  border: solid #ffffff 4px;
+  box-shadow: rgba(0, 0, 0, 0.9) 0px 15px 25px;
+  border-radius: 50px;
+  transition: 300ms;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.btn:hover {
+  transition: 300ms;
+  background-color: #33ff00;
+  color: #000000;
+  border: solid 4px #000000;
+  box-shadow: rgba(255, 255, 255, 0.9) 0px 15px 25px;
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    margin: 3vh;
+  }
+  .title {
+    font-size: 4em;
+  }
+}
