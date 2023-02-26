@@ -14,6 +14,7 @@ import Detail from "./components/Detail/Detail";
 import Error from "./components/Error/Error";
 import Form from "./components/Form/Form.jsx";
 import Favorites from "./components/Favorites/Favorites.jsx";
+import Loader from "./components/Loader/Loader.jsx";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,19 +36,10 @@ function App() {
     }
   }
 
-  // const onSearch = (character) => {
-  //   fetch(`http://localhost:3001/rickandmorty/onsearch/${character}`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       if (data.name) {
-  //         setCharacters((oldChars) => [...oldChars, data]);
-  //       } else {
-  //         window.alert("No hay personajes con ese ID");
-  //       }
-  //     });
-  // };
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSearch = (character) => {
+    setIsLoading(true);
     fetch(`http://localhost:3001/rickandmorty/onsearch/${character}`)
       .then((response) => response.json())
       .then((data) => {
@@ -58,12 +50,14 @@ function App() {
           } else {
             window.alert("Ese personaje ya fue agregado");
           }
+          setIsLoading(false);
         } else {
           window.alert("No hay personajes con ese ID");
+          setIsLoading(false);
         }
-      });
+      })
+      .catch((error) => {setIsLoading(false)});
   };
-
 
   const onClose = (id) => {
     dispatch(deleteFavorite(id));
@@ -80,6 +74,7 @@ function App() {
         {location.pathname !== "/" && <Navbar onSearch={onSearch} />}
       </div>
       <div className="panelMain">
+        {isLoading ? <Loader /> : null}
         <Routes>
           <Route exact path="/" element={<Form login={login} />} />
           <Route

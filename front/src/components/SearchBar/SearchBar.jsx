@@ -3,7 +3,6 @@ import style from "./SearchBar.module.css";
 
 export default function SearchBar(props) {
   const [character, setCharacter] = useState("");
-
   const handleChange = (e) => {
     const { value } = e.target;
     setCharacter(value);
@@ -27,6 +26,7 @@ export default function SearchBar(props) {
         id="searchInput"
         onChange={handleChange}
       />
+
       <button className={style.button} onClick={handleClick}>
         Add Character
       </button>

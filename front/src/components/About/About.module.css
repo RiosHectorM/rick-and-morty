@@ -17,10 +17,6 @@
   text-align: center;
 }
 
-.ab {
-  margin: 10px;
-}
-
 .like {
   text-decoration: none;
   font-size: 1.5em;
@@ -40,5 +36,23 @@
   box-shadow: rgba(255, 255, 255, 0.9) 0px 15px 25px;
 }
 
+.icon {
+  width: 60px;
+  height: 60px;
+  padding: 10px;
+  margin-left: 20px;
+  border-radius: 10px;
+}
+
+.icon:hover {
+  background: #1f9501;
+  box-shadow: rgba(255, 255, 255, 0.9) 0px 15px 25px;
+}
 @media screen and (max-width: 600px) {
+}
+
+.linkGitHub{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
