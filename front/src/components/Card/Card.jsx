@@ -58,7 +58,7 @@ export function Card(props) {
       </div>
       <div className={styles.headerwrapper}>
         <Link to={`/detail/${props.id}`} style={{ textDecoration: "none" }}>
-          <h1>{props.name}</h1>
+          <h1>#{props.id} - {props.name}</h1>
         </Link>
         <div className={styles.data}>
           <h2>{props.species}</h2>

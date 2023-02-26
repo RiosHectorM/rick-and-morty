@@ -12,14 +12,32 @@ export const Favorites = ({ myFavorites, onClose }) => {
   }, []);
 
   function ordenar(e) {
-    dispatch(orderCards(e.target.value));
+    if (e.target.value === "reset") {
+      document.getElementById("orden").selectedIndex = 0;
+      document.getElementById("filtro").selectedIndex = 0;
+      dispatch(getFavorite());
+    } else {
+      document.getElementById("filtro").selectedIndex = 0;
+      dispatch(orderCards(e.target.value));
+    }
   }
   function filtrar(e) {
+    if (e.target.value === "reset") {
+      document.getElementById("orden").selectedIndex = 0;
+      document.getElementById("filtro").selectedIndex = 0;
+      dispatch(getFavorite());
+    }
+    document.getElementById("orden").selectedIndex = 0;
     dispatch(filterCards(e.target.value));
   }
-
   function handleClose(id) {
     onClose(id);
+  }
+
+  function handleFilter() {
+    document.getElementById("orden").selectedIndex = 0;
+    document.getElementById("filtro").selectedIndex = 0;
+    dispatch(getFavorite());
   }
 
   return (
@@ -31,7 +49,9 @@ export const Favorites = ({ myFavorites, onClose }) => {
           onChange={ordenar}
           name="orden"
           id="orden"
+          placeholder="Seleccione una Opcion"
         >
+          <option value="reset">Ordering...</option>
           <option value="Ascendente">Ascendente</option>
           <option value="Descendente">Descendente</option>
         </select>
@@ -42,11 +62,16 @@ export const Favorites = ({ myFavorites, onClose }) => {
           name="filtro"
           id="filtro"
         >
+          <option value="reset">Filter...</option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
           <option value="Genderless">Genderless</option>
           <option value="unknown">unknown</option>
         </select>
+
+        <button className={styles.buttonReset} onClick={handleFilter}>
+          Reset Filter
+        </button>
       </div>
       <div className={styles.containerCards}>
         {myFavorites.map((character) => (

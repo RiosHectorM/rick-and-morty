@@ -2,9 +2,11 @@ import React from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import style from "./Navbar.module.css";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Navbar(props) {
+  const location = useLocation();
+
   return (
     <div className={style.container}>
       <div className={style.containerDivs}>
@@ -22,7 +24,7 @@ export default function Navbar(props) {
         </div>
       </div>
       <div>
-        <SearchBar onSearch={props.onSearch} />
+        {location.pathname === "/home" && <SearchBar onSearch={props.onSearch} />}
       </div>
     </div>
   );

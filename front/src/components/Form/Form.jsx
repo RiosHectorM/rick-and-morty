@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Form.module.css";
 import validation from "./validation";
+import logo from "./rymlogo.png";
 
 export default function Form(props) {
   //ESTADO INCIAL CARGADO PARA EVITAR DEMORAS
@@ -34,7 +35,8 @@ export default function Form(props) {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Rick & Morty App</h1>
+      <img className={styles.imglogo} src={logo} alt="rymlogo" />
+      {/* <h1 className={styles.title}>Rick & Morty App</h1> */}
       <form onSubmit={handleSubmit} className={styles.form}>
         <label>Username:</label>
         <input
