@@ -11,6 +11,9 @@ export const Favorites = ({ myFavorites, onClose }) => {
     dispatch(getFavorite());
   }, []);
 
+  
+
+
   function ordenar(e) {
     if (e.target.value === "reset") {
       document.getElementById("orden").selectedIndex = 0;
