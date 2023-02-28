@@ -7,7 +7,7 @@ const itemsPage = 10;
 export default function Cards(props) {
   const [datosFromApi, setDatosFromApi] = useState(props.characters);
 
-  const [items, setItems] = useState([...props.characters].splice(0, 10));
+  const [items, setItems] = useState([...props.characters].splice(0, itemsPage));
 
   const [currentPage, setCurrentPage] = useState(0);
 
