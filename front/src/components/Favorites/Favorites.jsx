@@ -4,13 +4,14 @@ import styles from "./Favorites.module.css";
 import { connect, useDispatch } from "react-redux";
 import { orderCards, filterCards, getFavorite } from "../../redux/actions.js";
 
-const itemsPage = 10;
+const itemsPage = 4;
 
 export const Favorites = ({ myFavorites, onClose }) => {
   const dispatch = useDispatch();
-
-  /////////////////////////
+  ///////////////////////////////
   const favo = myFavorites.length;
+
+  const [filterBand, setFilterBand] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -19,23 +20,31 @@ export const Favorites = ({ myFavorites, onClose }) => {
   const [totalPage, setTotalPage] = useState(
     Math.ceil(myFavorites.length / itemsPage, 1)
   );
-
   /////////////////////////////
-
   React.useEffect(() => {
-    dispatch(getFavorite());
-    setItems([...myFavorites].splice(currentPage * itemsPage, itemsPage));
+    if (filterBand === false) dispatch(getFavorite());
+    setItems([...myFavorites].splice(0, itemsPage));
+    console.log("Indice de inicio  " + currentPage * itemsPage);
     setTotalPage(Math.ceil(myFavorites.length / itemsPage, 1));
-  }, [favo]);
+  }, [favo, myFavorites]);
 
   function ordenar(e) {
     if (e.target.value === "reset") {
       document.getElementById("orden").selectedIndex = 0;
       document.getElementById("filtro").selectedIndex = 0;
+      setFilterBand(false);
       dispatch(getFavorite());
+      console.log("se reseteo");
+      console.log(myFavorites);
     } else {
       document.getElementById("filtro").selectedIndex = 0;
+      setFilterBand(true);
       dispatch(orderCards(e.target.value));
+      setCurrentPage(0);
+      console.log("se Ordeno");
+      console.log(myFavorites);
+      console.log("se Ordeno");
+      console.log(filterBand);
     }
   }
   function filtrar(e) {
@@ -43,16 +52,19 @@ export const Favorites = ({ myFavorites, onClose }) => {
       document.getElementById("orden").selectedIndex = 0;
       document.getElementById("filtro").selectedIndex = 0;
       dispatch(getFavorite());
+      setFilterBand(false);
     }
     document.getElementById("orden").selectedIndex = 0;
+    setFilterBand(true);
     dispatch(filterCards(e.target.value));
   }
   function handleClose(id) {
     onClose(id);
   }
-  function handleFilter() {
+  function handleReset() {
     document.getElementById("orden").selectedIndex = 0;
     document.getElementById("filtro").selectedIndex = 0;
+    setFilterBand(true);
     dispatch(getFavorite());
   }
 
@@ -110,7 +122,7 @@ export const Favorites = ({ myFavorites, onClose }) => {
           <option value="unknown">unknown</option>
         </select>
 
-        <button className={styles.buttonReset} onClick={handleFilter}>
+        <button className={styles.buttonReset} onClick={handleReset}>
           Reset Filter
         </button>
       </div>
@@ -133,7 +145,8 @@ export const Favorites = ({ myFavorites, onClose }) => {
             <div className={styles.buttons}>
               <button onClick={prevHandler}>Prev</button>
               <h1>
-                Page {currentPage + 1} / {totalPage}
+                Page {totalPage > currentPage ? currentPage + 1 : totalPage} /{" "}
+                {totalPage}
               </h1>
               <button onClick={nextHandler}>Next</button>
             </div>

@@ -30,6 +30,7 @@ const rootReducer = (state = initialState, action) => {
         allCharacters: action.payload,
         myFavorites: action.payload,
       };
+    
     case FILTER:
       return {
         ...state,
@@ -37,19 +38,18 @@ const rootReducer = (state = initialState, action) => {
           (item) => item.gender === action.payload
         ),
       };
-
     case ORDER:
       if (action.payload === "Ascendente") {
         return {
           ...state,
-          myFavorites: [...state.allCharacters].sort((p1, p2) =>
+          myFavorites: [...state.myFavorites].sort((p1, p2) =>
             p1.id > p2.id ? 1 : p1.id < p2.id ? -1 : 0
           ),
         };
       } else {
         return {
           ...state,
-          myFavorites: [...state.allCharacters].sort((p1, p2) =>
+          myFavorites: [...state.myFavorites].sort((p1, p2) =>
             p1.id < p2.id ? 1 : p1.id > p2.id ? -1 : 0
           ),
         };
