@@ -11,7 +11,8 @@ export default function Navbar(props) {
     <div className={style.container}>
       <div className={style.containerDivs}>
         <div className={style.navItems}>
-          <img src="rymlogo.png" alt="LogoRyM" />
+          <a href="https://rickandmortyapi.com/">
+          <img src="rymlogo.png" alt="LogoRyM" /></a>
           <Link className={style.link} to="/about">
             About
           </Link>
@@ -24,7 +25,9 @@ export default function Navbar(props) {
         </div>
       </div>
       <div>
-        {location.pathname === "/home" && <SearchBar onSearch={props.onSearch} />}
+        {location.pathname === "/home" && (
+          <SearchBar onSearch={props.onSearch} />
+        )}
       </div>
     </div>
   );

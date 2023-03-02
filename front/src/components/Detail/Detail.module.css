@@ -80,6 +80,7 @@
   color: black;
   text-align: center;
   width: auto;
+  border-radius: 20px;
 }
 
 @media screen and (max-width: 600px) {

@@ -4,7 +4,7 @@ import styles from "./Favorites.module.css";
 import { connect, useDispatch } from "react-redux";
 import { orderCards, filterCards, getFavorite } from "../../redux/actions.js";
 
-const itemsPage = 4;
+const itemsPage = 10;
 
 export const Favorites = ({ myFavorites, onClose }) => {
   const dispatch = useDispatch();
@@ -22,9 +22,9 @@ export const Favorites = ({ myFavorites, onClose }) => {
   );
   /////////////////////////////
   React.useEffect(() => {
-    if (filterBand === false) dispatch(getFavorite());
+    //if (filterBand === false) dispatch(getFavorite());
+    if (filterBand === false) handleReset();
     setItems([...myFavorites].splice(0, itemsPage));
-    console.log("Indice de inicio  " + currentPage * itemsPage);
     setTotalPage(Math.ceil(myFavorites.length / itemsPage, 1));
   }, [favo, myFavorites]);
 
@@ -34,17 +34,11 @@ export const Favorites = ({ myFavorites, onClose }) => {
       document.getElementById("filtro").selectedIndex = 0;
       setFilterBand(false);
       dispatch(getFavorite());
-      console.log("se reseteo");
-      console.log(myFavorites);
     } else {
       document.getElementById("filtro").selectedIndex = 0;
       setFilterBand(true);
       dispatch(orderCards(e.target.value));
       setCurrentPage(0);
-      console.log("se Ordeno");
-      console.log(myFavorites);
-      console.log("se Ordeno");
-      console.log(filterBand);
     }
   }
   function filtrar(e) {
