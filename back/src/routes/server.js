@@ -5,7 +5,8 @@ var morgan = require("morgan");
 
 const server = express();
 server.use(morgan("dev"));
-const PORT = 3001;
+
+const PORT = process.env.PORT || 3001;
 
 server.use(express.json());
 
