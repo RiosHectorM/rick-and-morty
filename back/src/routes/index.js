@@ -1,17 +1,19 @@
-const { Router } = require('express')
-// Controllers
-const getChatById = require('../controllers/getCharById.js');
-const getCharDetail = require('../controllers/getCharDetail.js');
-const getFavorites = require('../controllers/getFavorites.js');
-const postFavorites = require('../controllers/postFavorite.js');
-const deleteFavorite = require('../controllers/deleteFavorite.js');
+const { Router } = require("express");
+
+const getCharById = require('../controllers/getCharById');
+const getCharDetail = require('../controllers/getCharDetail');
+const getFavorite = require('../controllers/getFavorites');
+const getAllChars = require('../controllers/getAllChars');
+const postFav = require('../controllers/postFav');
+const deleteFav = require('../controllers/deleteFav');
 
 const router = Router();
 
-router.get('/onsearch/:id', getChatById);
-router.get("/detail/:id", getCharDetail);
-router.post("/fav", postFavorites);
-router.get("/fav", getFavorites);
-router.delete('/fav/:id', deleteFavorite)
+router.get("/character/:id", getCharById);
+router.get( "/detail/:id", getCharDetail);
+router.get('/fav', getFavorite);
+router.get('/allCharacters', getAllChars);
+router.post('/fav', postFav);
+router.delete('/fav/:id', deleteFav);
 
 module.exports = { router }
