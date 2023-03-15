@@ -18,7 +18,7 @@ function App() {
   const navigate = useNavigate();
 
   const username = 'mail@mail.com';
-  const password = 'ContaseniA..10';
+  const password = 'Pass..1010';
 
 
  const login = (userData) => {
@@ -37,7 +37,9 @@ function App() {
   
   const onSearch = (characterId) => {
     setIsLoading(true);
-    fetch(`http://localhost:3001/rickandmorty/onsearch/${characterId}`)
+    fetch(
+      `https://rick-and-morty-production-f7fc.up.railway.app/rickandmorty/onsearch/${characterId}`
+    )
       .then((response) => response.json())
       .then((data) => {
         if (data.name) {

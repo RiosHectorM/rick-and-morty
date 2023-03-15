@@ -11,7 +11,9 @@ export default function Detail() {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`http://localhost:3001/rickandmorty/detail/${detailId}`)
+    fetch(
+      `https://rick-and-morty-production-f7fc.up.railway.app/rickandmorty/detail/${detailId}`
+    )
       .then((response) => response.json())
       .then((char) => {
         if (char.name) {

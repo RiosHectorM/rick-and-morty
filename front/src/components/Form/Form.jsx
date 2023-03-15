@@ -1,18 +1,18 @@
-import React from "react";
-import styles from "./Form.module.css";
-import validation from "./validation";
-import logo from "./rymlogo.png";
+import React from 'react';
+import styles from './Form.module.css';
+import validation from './validation';
+import logo from './rymlogo.png';
 
 export default function Form(props) {
   //ESTADO INCIAL CARGADO PARA EVITAR DEMORAS
   const [userData, setUserData] = React.useState({
     username: 'mail@mail.com',
-    password: 'ContaseniA..10',
+    password: 'Pass..1010',
   });
 
   const [errors, setErrors] = React.useState({
-    username: "",
-    password: "",
+    username: '',
+    password: '',
   });
 
   const handleInputChange = (e) => {
@@ -35,13 +35,13 @@ export default function Form(props) {
 
   return (
     <div className={styles.container}>
-      <img className={styles.imglogo} src={logo} alt="rymlogo" />
+      <img className={styles.imglogo} src={logo} alt='rymlogo' />
       {/* <h1 className={styles.title}>Rick & Morty App</h1> */}
       <form onSubmit={handleSubmit} className={styles.form}>
         <label>Username:</label>
         <input
-          type="text"
-          name="username"
+          type='text'
+          name='username'
           value={userData.username}
           onChange={handleInputChange}
           className={errors.username && styles.warning}
@@ -50,15 +50,15 @@ export default function Form(props) {
 
         <label>Password:</label>
         <input
-          type="password"
-          name="password"
+          type='password'
+          name='password'
           value={userData.password}
           onChange={handleInputChange}
           className={errors.password && styles.warning}
         />
         <p className={styles.danger}>{errors.password}</p>
 
-        <button type="submit" className={styles.btn}>
+        <button type='submit' className={styles.btn}>
           Sign In
         </button>
       </form>
