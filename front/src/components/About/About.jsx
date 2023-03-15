@@ -1,9 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styles from "./About.module.css";
-import github from "./github.png";
-import linkedin from "./linkedin.png";
-import portfolio from "./maleta.png";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styles from './About.module.css';
+import github from './github.png';
+import linkedin from './linkedin.png';
+import portfolio from './maleta.png';
 
 export default function About() {
   return (
@@ -23,22 +23,32 @@ export default function About() {
           profiles:
         </p>
         <div className={styles.linkGitHub}>
-          <a href="https://h3cportfolio.vercel.app/">
-            <img className={styles.icon} src={portfolio} alt="portfolio" />
+          <a
+            href='https://h3cportfolio.vercel.app/'
+            target='_blank'
+            rel='noreferrer'
+          >
+            <img className={styles.icon} src={portfolio} alt='portfolio' />
           </a>
-          <a href="https://github.com/RiosHectorM">
-            <img className={styles.icon} src={github} alt="linkedin" />
+          <a
+            href='https://github.com/RiosHectorM'
+            target='_blank'
+            rel='noreferrer'
+          >
+            <img className={styles.icon} src={github} alt='linkedin' />
           </a>
-          <a href="https://www.linkedin.com/in/rioshectormartin/">
-            <img className={styles.icon} src={linkedin} alt="github" />
+          <a
+            href='https://www.linkedin.com/in/rioshectormartin/'
+            target='_blank'
+            rel='noreferrer'
+          >
+            <img className={styles.icon} src={linkedin} alt='github' />
           </a>
         </div>
-        <Link to={`/home`} style={{ textDecoration: "none" }}>
+        <Link to={`/home`} style={{ textDecoration: 'none' }}>
           <h3 className={styles.like}>Let's Start!</h3>
         </Link>
       </div>
-
-      
     </div>
   );
 }
