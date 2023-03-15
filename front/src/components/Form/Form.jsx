@@ -6,8 +6,8 @@ import logo from "./rymlogo.png";
 export default function Form(props) {
   //ESTADO INCIAL CARGADO PARA EVITAR DEMORAS
   const [userData, setUserData] = React.useState({
-    username: "mail@mail.com",
-    password: "asd123",
+    username: 'mail@mail.com',
+    password: 'ContaseniA..10',
   });
 
   const [errors, setErrors] = React.useState({
