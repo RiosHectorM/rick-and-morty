@@ -1,10 +1,11 @@
-import styles from "./Card.module.css";
-import { Link } from "react-router-dom";
-import { deleteFavorite, addFavorite } from "../../redux/actions.js";
-import { connect } from "react-redux";
-import React, { useState, useEffect } from "react";
+import styles from './Card.module.css';
+import { Link } from 'react-router-dom';
+import { addFavorite, deleteFavorite } from '../../redux/actions/actions';
+import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
 
 export function Card(props) {
+  const { name, species, gender, image } = props;
   const [isFav, setIsFav] = useState(false);
 
   function handleFavorite() {
@@ -13,29 +14,22 @@ export function Card(props) {
       props.deleteFavorite(props.id);
     } else {
       setIsFav(true);
-      const character = {
-        id: props.id,
-        name: props.name,
-        image: props.image,
-        species: props.species,
-        gender: props.gender,
-      };
-      props.addFavorite(character);
+      props.addFavorite(props);
     }
   }
 
   useEffect(() => {
-    props.myFavorites.forEach((fav) => {
+    props.myFavorites?.forEach((fav) => {
       if (fav.id === props.id) {
         setIsFav(true);
       }
     });
-  }, [props.myFavorites]);
+  }, [props.id, props.myFavorites]);
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.imagewrapper}>
-        <img src={props.image} alt="char" />
+        <img src={image} alt='char' />
       </div>
       <div className={styles.buttonContainer}>
         <div>
@@ -57,28 +51,36 @@ export function Card(props) {
         </button>
       </div>
       <div className={styles.headerwrapper}>
-        <Link to={`/detail/${props.id}`} style={{ textDecoration: "none" }}>
-          <h1>#{props.id} - {props.name}</h1>
+        <Link to={`/detail/${props.id}`} style={{ textDecoration: 'none' }}>
+          <h1>
+            #{props.id} - {name}
+          </h1>
         </Link>
         <div className={styles.data}>
-          <h2>{props.species}</h2>
-          <h2>{props.gender}</h2>
+          <h2>{species}</h2>
+          <h2>{gender}</h2>
         </div>
       </div>
     </div>
   );
 }
+
 export function mapDispatchToProps(dispatch) {
   return {
-    addFavorite: function (character) {
-      dispatch(addFavorite(character));
+    addFavorite: function (fav) {
+      dispatch(addFavorite(fav));
     },
+
     deleteFavorite: function (id) {
       dispatch(deleteFavorite(id));
     },
   };
 }
+
 export function mapStateToProps(state) {
-  return { myFavorites: state.myFavorites };
+  return {
+    myFavorites: state.myFavorites,
+  };
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(Card);

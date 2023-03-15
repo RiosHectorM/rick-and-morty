@@ -1,45 +1,49 @@
 const axios = require('axios');
-const { Character } = require('../DB_connection.js');
+const  { Character }  = require('../DB_connection');
 
 
 const getApiData = async () => {
-    try {
-        let allCharactersInfoApi = [];
-        for(let i = 1; i < 6; i++){
-            const apiData = await axios(`https://rickandmortyapi.com/api/character?page=${i}`);
-            allCharactersInfoApi.push(apiData);
-        }
-        // console.log('esta es la info', allCharactersInfoApi[0].data.results);
-        allCharactersInfoApi = await Promise.all(allCharactersInfoApi);
-        let allCharactersInfoApi2 = allCharactersInfoApi.map(response => response.data.results.map(charac => {
-            return {
-                id: charac.id,
-                name:charac.name,
-                species:charac.species,
-                status:charac.status,
-                origin:charac.origin.name,
-                gender:charac.gender,
-                image:charac.image
-            }
-        }))
-        // console.log('esto es la nueva info', allCharactersInfoApi2);
-        let allCharacters = allCharactersInfoApi2.flat();
-        // console.log('esta es la respuesta', allCharacters);
-        return allCharacters;
-    } catch (error) {
-        return {error: error.message}
-    }
-}
-// getApiData()
-
+  try {
+    const response = await axios.get('https://rickandmortyapi.com/api/character', {
+      params: {
+        page: 1,
+      },
+    });
+    console.log(`Received response with status ${response.status}`);
+    const characters = response.data.results.slice(0, 100).map((Character) => ({
+      id: Character.id,
+      name: Character.name,
+      species: Character.species,
+      status: Character.status,
+      origin: Character.origin.name,
+      gender: Character.gender,
+      image: Character.image,
+    }));
+    console.log(`Mapped ${characters.length} characters from API data`);
+    return characters;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
 
 const saveApiData = async () => {
     try {
-        const characterAll = await getApiData();
-        await Character.bulkCreate(characterAll);
+      const charactersData = await getApiData();
+      for (const characterData of charactersData) {
+        await Character.findOrCreateCharacter({
+          where: { id: characterData.id },
+          defaults: characterData,
+        });
+      }
+      console.log(`Saved ${charactersData.length} characters to the database`);
     } catch (error) {
-        return {error: error.message}
+      console.error(error);
     }
-}
+  };
 
-module.exports = saveApiData;
+
+module.exports = {
+  getApiData,
+  saveApiData,
+};

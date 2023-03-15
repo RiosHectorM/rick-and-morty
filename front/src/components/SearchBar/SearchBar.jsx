@@ -1,18 +1,15 @@
-import { useState } from "react";
-import style from "./SearchBar.module.css";
+import React, { useState } from 'react';
+import style from './SearchBar.module.css';
 
-export default function SearchBar(props) {
-  const [character, setCharacter] = useState("");
-  const handleChange = (e) => {
-    const { value } = e.target;
-    setCharacter(value);
-  };
+const SearchBar = (props) => {
 
-  const handleClick = () => {
-    props.onSearch(character);
-    setCharacter("");
-    document.getElementById("searchInput").value = "";
-  };
+const [character, setCharacter] = useState('');
+const handleChange = (e) => {
+  setCharacter(e.target.value);
+};
+const handleClick = () => {
+  props.onSearch(character);
+};
 
   function getRandomInt() {
     return Math.floor(Math.random() * 826).toString();
@@ -21,9 +18,9 @@ export default function SearchBar(props) {
   return (
     <div className={style.inputSearch}>
       <input
-        type="search"
-        placeholder="Search ID"
-        id="searchInput"
+        type='search'
+        placeholder='Search ID'
+        id='searchInput'
         onChange={handleChange}
       />
 
@@ -38,4 +35,5 @@ export default function SearchBar(props) {
       </button>
     </div>
   );
-}
+};
+export default SearchBar;

@@ -1,19 +1,20 @@
-const { Router } = require("express");
-
-const getCharById = require('../controllers/getCharById');
+const { Router } = require('express')
+// Controllers
+const getChatById = require('../controllers/getCharById');
 const getCharDetail = require('../controllers/getCharDetail');
-const getFavorite = require('../controllers/getFavorites');
+const getFavorit = require('../controllers/getFavorit');
+const postFavorit = require('../controllers/posFavorit');
+const deleteFavorit = require('../controllers/deleteFavorit');
 const getAllChars = require('../controllers/getAllChars');
-const postFav = require('../controllers/postFav');
-const deleteFav = require('../controllers/deleteFav');
 
 const router = Router();
 
-router.get("/character/:id", getCharById);
-router.get( "/detail/:id", getCharDetail);
-router.get('/fav', getFavorite);
 router.get('/allCharacters', getAllChars);
-router.post('/fav', postFav);
-router.delete('/fav/:id', deleteFav);
+router.get('/onsearch/:id', getChatById);
+router.get('/detail/:id', getCharDetail);
 
-module.exports = { router }
+router.get('/fav', getFavorit);
+router.post('/fav', postFavorit);
+router.delete('/fav/:id', deleteFavorit);
+
+module.exports = { router };

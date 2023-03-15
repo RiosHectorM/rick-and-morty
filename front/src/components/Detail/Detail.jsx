@@ -1,14 +1,10 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
-import Loader from "../Loader/Loader";
-
-import styles from "./Detail.module.css";
+import React, { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import Loader from '../Loader/Loader';
+import styles from './Detail.module.css';
 
 export default function Detail() {
   const [character, setCharacter] = useState({});
-
   const { detailId } = useParams();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -21,15 +17,14 @@ export default function Detail() {
         if (char.name) {
           setCharacter(char);
         } else {
-          window.alert("No hay personajes con ese ID");
+          window.alert('No hay personajes con ese ID');
         }
-      setIsLoading(false);
+        setIsLoading(false);
       })
       .catch((err) => {
-        window.alert("No hay personajes con ese ID");
+        window.alert('No hay personajes con ese ID');
         setIsLoading(false);
-      }
-      );
+      });
     return setCharacter({});
   }, [detailId]);
 
@@ -47,7 +42,7 @@ export default function Detail() {
             <p>Species:</p>
             <h2>{character.species}</h2>
             <p>Origin:</p>
-            <h2>{character.origin}</h2>
+            <h2>{character.origin?.name}</h2>
             <p>Location:</p>
             <h2>{character.location}</h2>
           </div>
@@ -55,13 +50,13 @@ export default function Detail() {
             <img
               className={styles.image}
               src={character.image}
-              alt="not found"
+              alt='not found'
             />
           </div>
         </div>
       ) : null}
       {!isLoading ? (
-        <Link to="/home" className={styles.link}>
+        <Link to='/home' className={styles.link}>
           <button className={styles.toHome}>Home</button>
         </Link>
       ) : null}

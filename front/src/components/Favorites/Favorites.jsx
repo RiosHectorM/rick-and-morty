@@ -1,91 +1,30 @@
-import React, { useState } from "react";
-import Card from "../Card/Card.jsx";
-import styles from "./Favorites.module.css";
-import { connect, useDispatch } from "react-redux";
-import { orderCards, filterCards, getFavorite } from "../../redux/actions.js";
+import { connect, useDispatch } from 'react-redux';
+import {
+  filterCards,
+  orderCards,
+  /* getFavorite */ deleteFavorite,
+} from '../../redux/actions/actions';
 
-const itemsPage = 10;
+import Card from '../Card/Card.jsx';
+import styles from './Favorites.module.css';
 
-export const Favorites = ({ myFavorites, onClose }) => {
+export const Favorites = ({ myFavorites }) => {
   const dispatch = useDispatch();
   ///////////////////////////////
-  const favo = myFavorites.length;
+  const handleDispatch = (e) => {
+    const { name, value } = e.target;
 
-  const [filterBand, setFilterBand] = useState(false);
-
-  const [currentPage, setCurrentPage] = useState(0);
-
-  const [items, setItems] = useState([...myFavorites].splice(0, itemsPage));
-
-  const [totalPage, setTotalPage] = useState(
-    Math.ceil(myFavorites.length / itemsPage, 1)
-  );
-  /////////////////////////////
-  React.useEffect(() => {
-    //if (filterBand === false) dispatch(getFavorite());
-    if (filterBand === false) handleReset();
-    setItems([...myFavorites].splice(0, itemsPage));
-    setTotalPage(Math.ceil(myFavorites.length / itemsPage, 1));
-  }, [favo, myFavorites]);
-
-  function ordenar(e) {
-    if (e.target.value === "reset") {
-      document.getElementById("orden").selectedIndex = 0;
-      document.getElementById("filtro").selectedIndex = 0;
-      setFilterBand(false);
-      dispatch(getFavorite());
-    } else {
-      document.getElementById("filtro").selectedIndex = 0;
-      setFilterBand(true);
-      dispatch(orderCards(e.target.value));
-      setCurrentPage(0);
+    if (name === 'order') {
+      return dispatch(orderCards(value));
     }
-  }
-  function filtrar(e) {
-    if (e.target.value === "reset") {
-      document.getElementById("orden").selectedIndex = 0;
-      document.getElementById("filtro").selectedIndex = 0;
-      dispatch(getFavorite());
-      setFilterBand(false);
+    if (name === 'filter') {
+      return dispatch(filterCards(value));
     }
-    document.getElementById("orden").selectedIndex = 0;
-    setFilterBand(true);
-    dispatch(filterCards(e.target.value));
-  }
-  function handleClose(id) {
-    onClose(id);
-  }
-  function handleReset() {
-    document.getElementById("orden").selectedIndex = 0;
-    document.getElementById("filtro").selectedIndex = 0;
-    setFilterBand(true);
-    dispatch(getFavorite());
-  }
-
-  /////////////////////////////////////
-
-  const nextHandler = () => {
-    const totalElem = myFavorites.length;
-    const nextPage = currentPage + 1;
-    const firstIndex = nextPage * itemsPage;
-    if (firstIndex >= totalElem) return;
-    setItems([...myFavorites].splice(firstIndex, itemsPage));
-    setCurrentPage(nextPage);
   };
-
-  const prevHandler = () => {
-    const prevPage = currentPage - 1;
-    if (prevPage < 0) return;
-    const firstIndex = prevPage * itemsPage;
-    setItems([...myFavorites].splice(firstIndex, itemsPage));
-    setCurrentPage(prevPage);
-  };
-
-  if (items.length === 0) {
-    prevHandler();
-  }
-
   ////////////////////////////////////
+  function handleClose(id) {
+    dispatch(deleteFavorite(id));
+  }
 
   return (
     <div className={styles.container}>
@@ -93,74 +32,55 @@ export const Favorites = ({ myFavorites, onClose }) => {
         <label>Ordenar:</label>
         <select
           className={styles.select}
-          onChange={ordenar}
-          name="orden"
-          id="orden"
-          placeholder="Seleccione una Opcion"
+          name='order'
+          onChange={handleDispatch}
         >
-          <option value="reset">Ordering...</option>
-          <option value="Ascendente">Ascendente</option>
-          <option value="Descendente">Descendente</option>
+          <option value='Ascendente'>Ascendente</option>
+          <option value='Descendente'>Descendente</option>
         </select>
+
         <label>Filtrar:</label>
         <select
           className={styles.select}
-          onChange={filtrar}
-          name="filtro"
-          id="filtro"
+          name='filter'
+          onChange={handleDispatch}
         >
-          <option value="reset">Filter...</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          <option value="Genderless">Genderless</option>
-          <option value="unknown">unknown</option>
+          <option value='Male'>Male</option>
+          <option value='Female'>Female</option>
+          <option value='Genderless'>Genderless</option>
+          <option value='unknown'>unknown</option>
         </select>
 
-        <button className={styles.buttonReset} onClick={handleReset}>
+        {/* <button className={styles.buttonReset} onClick={handleReset}>
           Reset Filter
-        </button>
+        </button> */}
       </div>
+
       <div className={styles.containerMain}>
         <div className={styles.containerCards}>
-          {items.map((character) => (
+          {myFavorites.map((character) => (
             <Card
-              key={character.name}
               name={character.name}
-              species={character.species}
+              id={character.id}
+              key={character.name}
               gender={character.gender}
               image={character.image}
-              id={character.id}
+              species={character.species}
+              status={character.status}
+              origin={character.origin}
               onClose={() => handleClose(character.id)}
             />
           ))}
         </div>
-        {myFavorites.length > itemsPage && (
-          <div className={styles.buttonsContainer}>
-            <div className={styles.buttons}>
-              <button onClick={prevHandler}>Prev</button>
-              <h1>
-                Page {totalPage > currentPage ? currentPage + 1 : totalPage} /{" "}
-                {totalPage}
-              </h1>
-              <button onClick={nextHandler}>Next</button>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
 };
 
 export function mapStateToProps(state) {
-  return { myFavorites: state.myFavorites };
-}
-
-export function mapDispatchToProps(dispatch) {
   return {
-    getFavorite: function (character) {
-      dispatch(getFavorite());
-    },
+    myFavorites: state.myFavorites,
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Favorites);
+export default connect(mapStateToProps, null)(Favorites);
