@@ -18,7 +18,7 @@ function App() {
   const navigate = useNavigate();
 
   const username = 'mail@mail.com';
-  const password = 'asd123';
+  const password = 'ContaseniA..10';
 
 
  const login = (userData) => {
